@@ -8,6 +8,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 
+import android.text.Layout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
     private boolean color = false;
     private TextView view;
     private long lastUpdate;
+    private TextView background_color;
+    private TextView lumView;
 
 
     @Override
@@ -24,8 +28,13 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        view = findViewById(R.id.textView);
-        view.setBackgroundColor(Color.GREEN);
+
+        view = findViewById(R.id.textView2);
+        background_color = findViewById(R.id.textView);
+        lumView = findViewById(R.id.textView3);
+
+        background_color.setBackgroundColor(Color.GREEN);
+        lumView.setBackgroundColor(Color.YELLOW);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
@@ -34,6 +43,8 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
                 sensorManager.registerListener(this,
                         sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                         SensorManager.SENSOR_DELAY_NORMAL);
+            } else{
+                view.setText(R.string.no_accelerometer);
             }
 
         }
@@ -67,13 +78,17 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
 
             Toast.makeText(this, R.string.shuffed, Toast.LENGTH_SHORT).show();
             if (color) {
-                view.setBackgroundColor(Color.GREEN);
+                background_color.setBackgroundColor(Color.GREEN);
 
             } else {
-                view.setBackgroundColor(Color.RED);
+                background_color.setBackgroundColor(Color.RED);
             }
             color = !color;
         }
+    }
+
+    private void getLuminosity(){
+
     }
 
     @Override
