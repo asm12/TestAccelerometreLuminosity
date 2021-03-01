@@ -25,7 +25,6 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
@@ -38,25 +37,49 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
+        checkSensors();
+
+        lastUpdate = System.currentTimeMillis();
+    }
+
+
+    private void checkSensors() {
         if (sensorManager != null) {
-            if(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!= null){
+            if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
                 sensorManager.registerListener(this,
                         sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                         SensorManager.SENSOR_DELAY_NORMAL);
-            } else{
+                setAccelerometerParams();
+
+            } else {
                 view.setText(R.string.no_accelerometer);
             }
 
+            if (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null) {
+                sensorManager.registerListener(this,
+                        sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),
+                        SensorManager.SENSOR_DELAY_NORMAL);
+            } else {
+                lumView.setText(R.string.light_sensor_available);
+            }
         }
-        // register this class as a listener for the accelerometer sensor
+    }
 
-        lastUpdate = System.currentTimeMillis();
 
+    private void setAccelerometerParams() {
+        view.append("\n\n");
+
+        view.append(getString(R.string.resolucio) + sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getResolution());
+        view.append(getString(R.string.rang) + sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getMaximumRange());
+        view.append(getString(R.string.consum) + sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getPower());
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        getAccelerometer(event);
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+            getAccelerometer(event);
+        else
+            getLuminosity(event);
     }
 
     private void getAccelerometer(SensorEvent event) {
@@ -69,8 +92,7 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
         float accelationSquareRoot = (x * x + y * y + z * z)
                 / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
         long actualTime = System.currentTimeMillis();
-        if (accelationSquareRoot >= 2)
-        {
+        if (accelationSquareRoot >= 2) {
             if (actualTime - lastUpdate < 200) {
                 return;
             }
@@ -87,7 +109,7 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
         }
     }
 
-    private void getLuminosity(){
+    private void getLuminosity(SensorEvent event) {
 
     }
 
