@@ -5,38 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TestAccelerometreActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/background_color">
-
 
     <LinearLayout
+        android:id="@+id/background_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="2">
-        <TextView
-            android:id="@+id/textView"
+        android:orientation="vertical">
 
-            android:layout_height="match_parent"
-            android:layout_width="match_parent" />
-
-    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView2"
-                android:text="@string/shake"
+                android:layout_width="match_parent"
 
                 android:layout_height="match_parent"
-                android:layout_width="match_parent" />
+                android:text="@string/shake" />
 
         </LinearLayout>
 
@@ -44,22 +46,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView3"
-                android:text="@string/shake"
-
+            <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent" />
+                android:fillViewport="true">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:text="@string/shake" />
+            </ScrollView>
+
 
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

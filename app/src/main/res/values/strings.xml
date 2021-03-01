@@ -11,6 +11,12 @@
     <string name="resolucio">Resolució: </string>
     <string name="rang">Rang mesura: </string>
     <string name="consum">Consum: </string>
+    <string name="light_sensor_unavailable">Light sensor unavailable</string>
+    <string name="max_messure"> Rang max. messure: </string>
+    <string name="new_lum_value">New value light sensor: </string>
+    <string name="low_intensity">\nLOW Intensity\n</string>
+    <string name="high_intensity">\nHIGH Intensity\n</string>
+    <string name="medium_intensity">\nMEDIUM Intensity\n</string>
     ""
 
 </resources>

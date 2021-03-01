@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import android.text.Layout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
     private long lastUpdate;
     private TextView background_color;
     private TextView lumView;
+    private float maxLumRange;
+    private ScrollView scroll;
 
 
     @Override
@@ -31,6 +34,7 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
         view = findViewById(R.id.textView2);
         background_color = findViewById(R.id.textView);
         lumView = findViewById(R.id.textView3);
+        scroll = findViewById(R.id.scroll);
 
         background_color.setBackgroundColor(Color.GREEN);
         lumView.setBackgroundColor(Color.YELLOW);
@@ -59,8 +63,10 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
                 sensorManager.registerListener(this,
                         sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),
                         SensorManager.SENSOR_DELAY_NORMAL);
+                setLumParams();
+
             } else {
-                lumView.setText(R.string.light_sensor_available);
+                lumView.setText(R.string.light_sensor_unavailable);
             }
         }
     }
@@ -76,6 +82,14 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
         view.append(getString(R.string.consum) + sensorManager
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getPower());
     }
+
+    private void setLumParams() {
+
+        maxLumRange = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT).getMaximumRange();
+        lumView.setText(R.string.light_sensor_available);
+        lumView.append(getString(R.string.max_messure) + maxLumRange + "\n");
+    }
+
 
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -113,7 +127,19 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
     }
 
     private void getLuminosity(SensorEvent event) {
+        float[] values = event.values;
+        float currentLum = values[0];
 
+        lumView.append(getString(R.string.new_lum_value) + currentLum);
+
+        if (currentLum < (maxLumRange / 3)) {
+            lumView.append(getString(R.string.low_intensity));
+        } else if (currentLum > (maxLumRange * 2 / 3)) {
+            lumView.append(getString(R.string.high_intensity));
+        } else {
+            lumView.append(getString(R.string.medium_intensity));
+        }
+        scroll.scrollTo(0, scroll.getBottom());
     }
 
     @Override
