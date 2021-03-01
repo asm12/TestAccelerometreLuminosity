@@ -69,9 +69,12 @@ public class TestAccelerometreActivity extends Activity implements SensorEventLi
     private void setAccelerometerParams() {
         view.append("\n\n");
 
-        view.append(getString(R.string.resolucio) + sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getResolution());
-        view.append(getString(R.string.rang) + sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getMaximumRange());
-        view.append(getString(R.string.consum) + sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getPower());
+        view.append(getString(R.string.resolucio) + sensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getResolution() + "\n");
+        view.append(getString(R.string.rang) + sensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getMaximumRange() + "\n");
+        view.append(getString(R.string.consum) + sensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER).getPower());
     }
 
     @Override
