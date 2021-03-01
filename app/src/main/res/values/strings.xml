@@ -9,8 +9,8 @@
     <string name="no_accelerometer">Sorry, there is no accelerometer</string>
     <string name="light_sensor_available">Light sensor available</string>
     <string name="resolucio">Resolució: </string>
-    <string name="rang">\"Rang mesura: \"</string>
-    <string name="consum">\"Consum: \"</string>
+    <string name="rang">Rang mesura: </string>
+    <string name="consum">Consum: </string>
     ""
 
 </resources>
